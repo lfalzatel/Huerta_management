@@ -13,9 +13,6 @@
     "NEXTAUTH_URL": "https://huerta-management.vercel.app",
     "NEXTAUTH_SECRET": "mi-super-secreto-123",
     "DATABASE_URL": "@database-url"
-  }
-}
-
   },
   "env": {
     "NEXTAUTH_URL": "https://huerta-management.vercel.app",
