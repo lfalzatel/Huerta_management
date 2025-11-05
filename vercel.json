@@ -11,13 +11,13 @@
   },
   "env": {
     "NEXTAUTH_URL": "https://huerta-management.vercel.app",
-    "NEXTAUTH_SECRET": "@next-auth-secret",
-    "DATABASE_URL": "@database-url"
+    "NEXTAUTH_SECRET": "6aaa0fba390f1f0595b357a0d338f573",
+    "DATABASE_URL": "postgresql://neondb_owner:npg_mABfk0ODS3Wy@ep-round-morning-adiv1idm-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
   },
   "build": {
     "env": {
       "NEXTAUTH_URL": "https://your-domain.vercel.app",
-      "NEXTAUTH_SECRET": "@next-auth-secret"
+      "NEXTAUTH_SECRET": "6aaa0fba390f1f0595b357a0d338f573"
     }
   },
   "headers": [
