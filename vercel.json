@@ -4,16 +4,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "functions": {
-    "api/**/*.php": {
-      "runtime": "vercel-php@0.5.1"
-    }
-  },
-  "env": {
-    "NEXTAUTH_URL": "https://huerta-management.vercel.app",
-    "NEXTAUTH_SECRET": "mi-super-secreto-123",
-    "DATABASE_URL": "@database-url"
-  },
   "env": {
     "NEXTAUTH_URL": "https://huerta-management.vercel.app",
     "NEXTAUTH_SECRET": "6aaa0fba390f1f0595b357a0d338f573",
@@ -21,7 +11,7 @@
   },
   "build": {
     "env": {
-      "NEXTAUTH_URL": "https://your-domain.vercel.app",
+      "NEXTAUTH_URL": "https://huerta-management.vercel.app",
       "NEXTAUTH_SECRET": "6aaa0fba390f1f0595b357a0d338f573"
     }
   },
