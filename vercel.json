@@ -10,7 +10,7 @@
     }
   },
   "env": {
-    "NEXTAUTH_URL": "@next-auth-url",
+    "NEXTAUTH_URL": "https://huerta-management.vercel.app",
     "NEXTAUTH_SECRET": "@next-auth-secret",
     "DATABASE_URL": "@database-url"
   },
