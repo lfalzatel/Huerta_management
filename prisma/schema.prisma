@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      UserRole @default(EMPLOYEE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relaciones
+  sales     Sale[]
+  
+  @@map("users")
+}
+
+model Employee {
+  id          String   @id @default(cuid())
+  name        String
+  email       String   @unique
+  phone       String?
+  position    String
+  salary      Float?
+  hireDate    DateTime @default(now())
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relaciones
+  sales       Sale[]
+  
+  @@map("employees")
+}
+
+model Customer {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?  @unique
+  phone       String?
+  address     String?
+  dni         String?  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relaciones
+  sales       Sale[]
+  
+  @@map("customers")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  stock       Int      @default(0)
+  category    String
+  image       String?
+  sku         String?  @unique
+  minStock    Int      @default(5)
+  entryDate   DateTime @default(now())
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relaciones
+  saleItems   SaleItem[]
+  
+  @@map("products")
+}
+
+model Sale {
+  id          String      @id @default(cuid())
+  saleNumber  String      @unique
+  customerId  String
+  employeeId  String?
+  userId      String?
+  totalAmount Float
+  paymentMethod String?
+  status      SaleStatus  @default(PENDING)
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relaciones
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  employee    Employee?   @relation(fields: [employeeId], references: [id])
+  user        User?       @relation(fields: [userId], references: [id])
+  items       SaleItem[]
+  
+  @@map("sales")
+}
+
+model SaleItem {
+  id          String @id @default(cuid())
+  saleId      String
+  productId   String
+  quantity    Int
+  unitPrice   Float
+  subtotal    Float
+  
+  // Relaciones
+  sale        Sale   @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product     Product @relation(fields: [productId], references: [id])
+  
+  @@map("sale_items")
+}
+
+enum UserRole {
+  ADMIN
+  EMPLOYEE
+}
+
+enum SaleStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}

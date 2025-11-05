@@ -1,0 +1,44 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "env": {
+    "NEXTAUTH_URL": "@next-auth-url",
+    "NEXTAUTH_SECRET": "@next-auth-secret",
+    "DATABASE_URL": "@database-url"
+  },
+  "build": {
+    "env": {
+      "NEXTAUTH_URL": "https://your-domain.vercel.app",
+      "NEXTAUTH_SECRET": "@next-auth-secret"
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/auth/signin",
+      "destination": "/auth/signin"
+    },
+    {
+      "source": "/((?!api|_next/static|_next/image|favicon.ico).*)",
+      "destination": "/$1"
+    }
+  ]
+}
